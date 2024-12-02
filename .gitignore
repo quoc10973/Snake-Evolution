@@ -1,0 +1,67 @@
+# Tệp nhị phân và thư mục được Visual Studio tạo tự động
+bin/
+obj/
+
+# Tệp bộ nhớ đệm của Visual Studio
+.vs/
+
+# Các tệp tạm thời và log
+*.log
+*.tmp
+*.bak
+*.swp
+*.user
+*.suo
+
+# Tệp cấu hình môi trường cục bộ
+*.userprefs
+*.csproj.user
+
+# Tệp build và thư mục debug/release
+Debug/
+Release/
+
+# Tệp liên quan đến công cụ build
+BuildArtifacts/
+project.lock.json
+project.fragment.lock.json
+
+# Thư viện bên ngoài được quản lý bởi NuGet
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# Tệp tạm thời của hệ điều hành
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Tệp liên quan đến ReSharper hoặc Rider
+.idea/
+*.sln.iml
+*.suo
+_ReSharper*/
+*.DotSettings.user
+
+# Các tệp cấu hình tool khác (nếu bạn dùng)
+*.coverage
+*.coveragexml
+TestResults/
+*.code-workspace
+
+# Thư viện tạm thời khi build WPF
+*.g.*
+*.i.*
+*.tlog
+*.lastbuildstate
+*.vspscc
+
+# Tệp DLL và tệp thực thi không cần track
+*.dll
+*.exe
+*.pdb
+
+# Tệp liên quan đến Publish
+.publish/
+app.publish/
