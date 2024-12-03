@@ -1,5 +1,7 @@
 ﻿
 
+
+
 namespace Snake
 {
     public class Direction
@@ -14,8 +16,8 @@ namespace Snake
 
         public Direction(int rowOffset, int columnOffset)
         {
-            RowOffset = RowOffset;
-            ColumnOffset = ColumnOffset;
+            RowOffset = rowOffset;
+            ColumnOffset = columnOffset;
         }
 
         public Direction Opposite()

@@ -1,6 +1,7 @@
 ﻿
 
 
+
 namespace Snake
 {
     public class Position
@@ -10,8 +11,8 @@ namespace Snake
 
         public Position(int row, int column)
         {
-            Row = Row;
-            Column = Column;
+            Row = row;
+            Column = column;
         }
 
         public Position Translate(Direction direction)
