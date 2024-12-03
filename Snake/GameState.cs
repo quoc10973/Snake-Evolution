@@ -63,7 +63,6 @@ namespace Snake
             Grid[position.Row, position.Column] = GridValue.Food; //thêm thức ăn vào vị trí đã chọn
         }
 
-        //chua commit va push
         public Position Head => SnakePosition.First.Value; //lấy vị trí của đầu rắn
 
         public Position Tail => SnakePosition.Last.Value; //lấy vị trí của đuôi rắn

@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Snake"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="SnakeEvolution" Height="550" Width="800" 
+        Background="{StaticResource BackgroundColor}" 
+        Foreground="{StaticResource TextColor}"
+        FontFamily="{StaticResource MainFont}"
+        WindowStartupLocation="CenterScreen"
+        Icon="Assets/icon.ico">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock x:Name="ScoreText"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Text="SCORE 0"
+                     FontSize="22"
+                     Margin="10"/>
+        <Border x:Name="GridBorder"
+                Grid.Row="1"
+                BorderBrush="{StaticResource GridLineColor}"
+                BorderThickness="1.5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <UniformGrid x:Name="GameGrid"
+                         Width="400"
+                         Height="400"
+                         Background="{StaticResource GridBackgroundColor}">
+            </UniformGrid>
+            
+        </Border>
     </Grid>
 </Window>
