@@ -25,7 +25,7 @@ namespace Snake
         };
         private readonly int rows = 15, cols = 15;
         private readonly Image[,] gridImages;
-        private readonly GameState gameState;
+        private GameState gameState;
         private bool gameRunning;
 
         public MainWindow()
@@ -75,8 +75,11 @@ namespace Snake
         private async Task RunGame()
         {
             Draw();
+            await ShowCountDown();
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
+            await ShowGameOver();
+            gameState = new GameState(rows, cols);
         }
 
         private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -126,6 +129,21 @@ namespace Snake
             }
         }
 
+        private async Task ShowCountDown()
+        {
+            for (int i = 3; i >= 1; i--)
+            {
+                OverlayText.Text = i.ToString();
+                await Task.Delay(500);
+            }
+        }
+
+        private async Task ShowGameOver()
+        {
+            await Task.Delay(1000);
+            Overlay.Visibility = Visibility.Visible;
+            OverlayText.Text = "Press any key to restart";
+        }
       
     }
 }
