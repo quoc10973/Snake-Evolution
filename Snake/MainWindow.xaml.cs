@@ -26,6 +26,7 @@ namespace Snake
         private readonly int rows = 15, cols = 15;
         private readonly Image[,] gridImages;
         private readonly GameState gameState;
+        private bool gameRunning;
 
         public MainWindow()
         {
@@ -71,10 +72,25 @@ namespace Snake
                 }
             }
         }
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private async Task RunGame()
         {
             Draw();
+            Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
+        }
+
+        private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Overlay.Visibility == Visibility.Visible)
+            {
+                e.Handled = true; // chặn game chạy và đợi await RunGame() 
+            }
+            if (!gameRunning)
+            {
+                gameRunning = true;
+                await RunGame(); // chạy game overlay ẩn đi và e.Handled = true sẽ không xử lý sự kiện chặn game chạy nữa
+                gameRunning = false;
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

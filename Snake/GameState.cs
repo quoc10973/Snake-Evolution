@@ -13,6 +13,8 @@ namespace Snake
 
         private readonly LinkedList<Position> snakePosition = new LinkedList<Position>(); //danh sách liên kết những position - vị trí của rắn (đầu rắn là head, đuôi rắn là tail)
 
+        private readonly LinkedList<Direction> dirChanges = new LinkedList<Direction>(); //danh sách liên kết những hướng di chuyển của rắn
+
         private static readonly Random random = new Random(); //tạo số ngẫu nhiên cho vị trí của thức ăn
 
         public GameState(int rows, int columns)
@@ -82,9 +84,31 @@ namespace Snake
             snakePosition.RemoveLast(); //xóa vị trí của đuôi rắn khỏi danh sách liên kết
         }
 
+        private Direction GetLastDirection()
+        {
+            if (dirChanges.Count == 0) //nếu không có hướng di chuyển mới
+            {
+                return Direction; //trả về hướng di chuyển hiện tại
+            }
+            return dirChanges.Last.Value; //trả về hướng di chuyển cuối cùng mà người chơi bấm
+        }
+
+        private bool CanChangeDirection(Direction newDirection)
+        {
+            if(dirChanges.Count == 2) 
+            {
+                return false; //nếu danh sách liên kết chứa 2 hướng di chuyển thì không thể chuyển hướng
+            }
+            Direction lastDirection = GetLastDirection(); //lấy hướng di chuyển cuối cùng
+            return newDirection != lastDirection && newDirection != lastDirection.Opposite(); //nếu hướng di chuyển mới khác hướng di chuyển cuối cùng và hướng di chuyển mới khác hướng di chuyển đối diện với hướng di chuyển cuối cùng
+        }
+
         public void ChangeDirection(Direction newDirection)
         {
-            Direction = newDirection; //thay đổi hướng di chuyển của rắn
+            if (CanChangeDirection(newDirection))
+            {
+                dirChanges.AddLast(newDirection); //thêm hướng di chuyển mới vào danh sách liên kết
+            }
         }
 
         public bool OutSideGrid(Position position)
@@ -108,6 +132,12 @@ namespace Snake
 
         public void Move()
         {
+            if(dirChanges.Count > 0)
+            {
+                Direction = dirChanges.First.Value; //lấy hướng di chuyển đầu tiên trong danh sách liên kết
+                dirChanges.RemoveFirst(); //xóa hướng di chuyển đầu tiên khỏi danh sách liên kết
+            }
+
             Position newHeadPos = HeadPosition.Translate(Direction); //tính vị trí của đầu rắn sau khi di chuyển
             GridValue hit = WillHit(newHeadPos); //kiểm tra xem rắn có đụng vào tường hoặc đuôi không
 
