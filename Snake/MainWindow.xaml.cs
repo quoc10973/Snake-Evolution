@@ -27,6 +27,13 @@ namespace Snake
         private readonly Image[,] gridImages;
         private GameState gameState;
         private bool gameRunning;
+        private readonly Dictionary<Direction, int> dirToRotation = new()
+        {
+            { Direction.Up, 0 },
+            { Direction.Right, 90 },
+            { Direction.Down, 180 },
+            { Direction.Left, 270 },
+        };
 
         public MainWindow()
         {
@@ -48,6 +55,7 @@ namespace Snake
                     Image image = new Image // tạo hình ảnh từ Image trong class System.Windows.Controls
                     { 
                         Source = Images.Empty, // source hình ảnh ban đầu của các ô là Empty
+                        RenderTransformOrigin = new Point(0.5, 0.5), // điểm xoay hình ảnh là tâm của hình ảnh (phép xoay sẽ lấy tâm của đối tượng làm điểm gốc)
                     };
                     images[r, c] = image; // lưu trữ hình ảnh vào mảng 2 chiều
                     GameGrid.Children.Add(image); // thêm hình ảnh vào GameGrid
@@ -59,6 +67,7 @@ namespace Snake
         private void Draw()
         {
            DrawGrid();
+           DrawSnakeHead();
            ScoreText.Text = $"Score: {gameState.Score}";
         }
         private void DrawGrid()
@@ -69,8 +78,19 @@ namespace Snake
                 {
                    GridValue gridValue = gameState.Grid[r,c];
                     gridImages[r, c].Source = gridValToImage[gridValue]; // cập nhật hình ảnh của ô trên grid tương ứng với giá trị của ô
+                    gridImages[r, c].RenderTransform = Transform.Identity; // xoay hình ảnh về trạng thái ban đầu (không bị xoay, dịch chuyển, hoặc co giãn).
                 }
             }
+        }
+
+        private void DrawSnakeHead()
+        {
+            Position head = gameState.HeadPosition;
+            Image headImage = gridImages[head.Row, head.Column];
+            headImage.Source = Images.Head;
+
+            int rotation = dirToRotation[gameState.Direction];
+            headImage.RenderTransform = new RotateTransform(rotation);
         }
         private async Task RunGame()
         {
