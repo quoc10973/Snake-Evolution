@@ -20,4 +20,4 @@ This is a simple Snake game application developed using WPF (Windows Presentatio
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/username/snake-game-wpf.git
+   git clone https://github.com/quoc10973/Snake-Evolution.git
